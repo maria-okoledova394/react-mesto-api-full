@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    throw new ForbiddenError('Необходима авторизация');
+    next (new ForbiddenError('Необходима авторизация'));
   }
 
   const token = extractBearerToken(authorization);
@@ -25,6 +25,6 @@ module.exports = (req, res, next) => {
 
     next();
   } catch (e) {
-    throw new UnauthorizedError('Ошибка авторизации');
+    next (new UnauthorizedError('Ошибка авторизации'));
   }
 };
