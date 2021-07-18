@@ -21,14 +21,13 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, secretKey);
-    req.user = payload;
   } catch (e) {
     let error = e;
-    if (!(error.name === 'ForbiddenError')) {
-      error = new UnauthorizedError('Ошибка авторизации');
-    }
+    error = new UnauthorizedError('Ошибка авторизации');
     next(error);
   }
+
+  req.user = payload;
 
   next();
 };
