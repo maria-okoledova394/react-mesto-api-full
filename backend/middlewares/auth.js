@@ -17,8 +17,6 @@ module.exports = (req, res, next) => {
   const token = extractBearerToken(authorization);
   let payload;
 
-  console.log(jwt.verify(token, 'bad-secret-key'));
-
   try {
     payload = jwt.verify(token, secretKey);
     req.user = payload;
