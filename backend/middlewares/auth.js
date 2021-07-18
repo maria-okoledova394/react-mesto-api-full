@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, secretKey);
+    req.user = payload;
   } catch (e) {
     let error = e;
     if (!(error.name === 'ForbiddenError')) {
@@ -29,6 +30,5 @@ module.exports = (req, res, next) => {
     next(error);
   }
 
-  req.user = payload;
   next();
 };
