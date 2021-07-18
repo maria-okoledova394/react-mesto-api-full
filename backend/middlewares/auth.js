@@ -21,13 +21,10 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, secretKey);
+    req.user = payload;
+
+    next();
   } catch (e) {
-    let error = e;
-    error = new UnauthorizedError('Ошибка авторизации');
-    next(error);
+    next(new UnauthorizedError('Ошибка авторизации'));
   }
-
-  req.user = payload;
-
-  next();
 };
