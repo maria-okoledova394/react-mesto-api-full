@@ -25,6 +25,6 @@ module.exports = (req, res, next) => {
 
     next();
   } catch (e) {
-    next(new UnauthorizedError('Ошибка авторизации'));
+    throw new UnauthorizedError('Ошибка авторизации');
   }
 };
